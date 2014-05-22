@@ -8,12 +8,12 @@ package org.waastad.principallookup.controller;
 import java.io.IOException;
 import java.io.Serializable;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.servlet.ServletException;
+import org.omnifaces.cdi.ViewScoped;
 import org.waastad.principallookup.ejb.RegisterServiceLocal;
 
 /**
@@ -21,7 +21,7 @@ import org.waastad.principallookup.ejb.RegisterServiceLocal;
  * @author Helge Waastad <helge.waastad@datametrix.no>
  */
 @Named
-@SessionScoped
+@ViewScoped
 public class ViewController implements Serializable {
 
     private static final long serialVersionUID = -5993764783281077184L;
