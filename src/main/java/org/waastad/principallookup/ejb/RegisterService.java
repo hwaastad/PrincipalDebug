@@ -41,8 +41,9 @@ public class RegisterService implements RegisterServiceLocal {
     public void doPrivilegedStuff() {
         System.out.println("RegisterService: Caller Principal: " + context.getCallerPrincipal().getName());
         String string = "Im doing privileged stuff";
-        receiver.logEvent(string);
-        //smsListener.fire(string);
+        smsListener.fire(string);
+        receiver.logEventCall(string);
+        receiver.logEventAsynchCall(string);
     }
 
     @Override
@@ -50,6 +51,8 @@ public class RegisterService implements RegisterServiceLocal {
         System.out.println("RegisterService Unprivileged: Caller Principal: " + context.getCallerPrincipal().getName());
         String string = "Im doing Un-privileged stuff";
         smsListener.fire(string);
+        receiver.logEventCall(string);
+        receiver.logEventAsynchCall(string);
     }
 
 }

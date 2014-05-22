@@ -34,4 +34,15 @@ public class LogReceiver {
         System.out.println("LogReceiver: Caller Principal: " + context.getCallerPrincipal().getName());
         dbLog.fire("I will logg this to db");
     }
+    
+    public void logEventCall(String message) {
+        System.out.println("LogReceiver Standard: Caller Principal: " + context.getCallerPrincipal().getName());
+        dbLog.fire("I will logg this to db");
+    }
+    
+    @Asynchronous
+    public void logEventAsynchCall(String message) {
+        System.out.println("LogReceiver Standard Asynch: Caller Principal: " + context.getCallerPrincipal().getName());
+        dbLog.fire("I will logg this to db");
+    }
 }
