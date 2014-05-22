@@ -140,6 +140,9 @@
             <id>apache-m2-snapshot-plugin</id>
             <name>Apache Snapshot Repository</name>
             <url>http://repository.apache.org/snapshots</url>
+            <snapshots>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
         </pluginRepository>
         <pluginRepository>
             <id>jboss-public-repository-group</id>
