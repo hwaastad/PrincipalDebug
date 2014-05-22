@@ -31,8 +31,7 @@ public class LogReceiver {
 
     @Asynchronous
     public void logEvent(@Observes @EventLog String message) {
-        System.out.println("Caller Principal: " + context.getCallerPrincipal().getName());
-        System.out.println("I received a message: " + message);
-        dbLog.fire("I will logg this to db");
+        System.out.println("LogReceiver: Caller Principal: " + context.getCallerPrincipal().getName());
+        //dbLog.fire("I will logg this to db");
     }
 }

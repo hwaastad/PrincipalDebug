@@ -24,7 +24,6 @@ public class DbReceiver {
 
     @Asynchronous
     public void logToDb(@Observes @DBLog String logMessage) {
-        System.out.println("Caller Principal: " + context.getCallerPrincipal().getName());
-        System.out.println("I received a log message: " + logMessage);
+        System.out.println("DbReceiver: Caller Principal: " + context.getCallerPrincipal().getName());
     }
 }

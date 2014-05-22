@@ -8,12 +8,14 @@ package org.waastad.principallookup.ejb;
 import javax.annotation.Resource;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
+import javax.ejb.EJB;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
+import org.waastad.principallookup.event.LogReceiver;
 import org.waastad.principallookup.qualifier.EventLog;
 
 /**
@@ -29,23 +31,24 @@ public class RegisterService implements RegisterServiceLocal {
     @EventLog
     private Event<String> smsListener;
     
+    @EJB private LogReceiver receiver;
+    
     @Resource
     private SessionContext context;
 
     @Override
     @RolesAllowed({"AdminGroup"})
-    public void sayHello() {
-        System.out.println("Caller Principal: " + context.getCallerPrincipal().getName());
+    public void doPrivilegedStuff() {
+        System.out.println("RegisterService: Caller Principal: " + context.getCallerPrincipal().getName());
         String string = "Im doing privileged stuff";
-        System.out.println(string);
-        smsListener.fire(string);
+        receiver.logEvent(string);
+        //smsListener.fire(string);
     }
 
     @Override
     public void doUnprivilegedStuff() {
-        System.out.println("Caller Principal: " + context.getCallerPrincipal().getName());
+        System.out.println("RegisterService Unprivileged: Caller Principal: " + context.getCallerPrincipal().getName());
         String string = "Im doing Un-privileged stuff";
-        System.out.println(string);
         smsListener.fire(string);
     }
 

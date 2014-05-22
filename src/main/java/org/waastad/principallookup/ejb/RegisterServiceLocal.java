@@ -15,7 +15,7 @@ import javax.ejb.Local;
 @Local
 public interface RegisterServiceLocal {
 
-    void sayHello();
+    void doPrivilegedStuff();
 
     void doUnprivilegedStuff();
     
