@@ -9,6 +9,7 @@
     <h:body>
         <h:form>
             <p:commandButton value="DoUnsecureStuff" actionListener="#{viewController.unPriviledgedAction(event)}"/>
+            <p:commandButton value="Logout" action="#{viewController.logout(event)}" ajax="false"/>
         </h:form>
     </h:body>
 </html>

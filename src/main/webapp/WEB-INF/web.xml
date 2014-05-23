@@ -26,7 +26,7 @@
     </welcome-file-list>
     <error-page>
         <error-code>401</error-code>
-        <location>/logout.xhtml</location>
+        <location>/index.xhtml</location>
     </error-page>
     <security-constraint>
         <display-name>SecureConstraint</display-name>

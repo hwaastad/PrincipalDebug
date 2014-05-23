@@ -12,6 +12,10 @@ import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.waastad.principallookup.interceptor.LogInterceptor;
 import org.waastad.principallookup.qualifier.DBLog;
 import org.waastad.principallookup.qualifier.EventLog;
 
@@ -20,29 +24,30 @@ import org.waastad.principallookup.qualifier.EventLog;
  * @author helge
  */
 @Stateless
+@Interceptors(LogInterceptor.class)
 public class LogReceiver {
+
+    private static final Logger LOG = LoggerFactory.getLogger(LogReceiver.class);
 
     @Resource
     private SessionContext context;
-    
+
     @Inject
     @DBLog
     private Event<String> dbLog;
 
     @Asynchronous
     public void logEvent(@Observes @EventLog String message) {
-        System.out.println("LogReceiver: Caller Principal: " + context.getCallerPrincipal().getName());
         dbLog.fire("I will logg this to db");
     }
-    
+
     public void logEventCall(String message) {
-        System.out.println("LogReceiver Standard: Caller Principal: " + context.getCallerPrincipal().getName());
         dbLog.fire("I will logg this to db");
     }
-    
+
     @Asynchronous
     public void logEventAsynchCall(String message) {
-        System.out.println("LogReceiver Standard Asynch: Caller Principal: " + context.getCallerPrincipal().getName());
+        LOG.info("LogReceiver Standard Asynch: Caller Principal: {}", context.getCallerPrincipal().getName());
         dbLog.fire("I will logg this to db");
     }
 }

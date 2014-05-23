@@ -10,6 +10,8 @@ import javax.ejb.Asynchronous;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Observes;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.waastad.principallookup.qualifier.DBLog;
 
 /**
@@ -19,11 +21,13 @@ import org.waastad.principallookup.qualifier.DBLog;
 @Stateless
 public class DbReceiver {
 
+    private static final Logger LOG = LoggerFactory.getLogger(DbReceiver.class);
+
     @Resource
     private SessionContext context;
 
     @Asynchronous
     public void logToDb(@Observes @DBLog String logMessage) {
-        System.out.println("DbReceiver: Caller Principal: " + context.getCallerPrincipal().getName());
+        LOG.info("DbReceiver: Caller Principal: {}", context.getCallerPrincipal().getName());
     }
 }
