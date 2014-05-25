@@ -18,24 +18,18 @@ import org.slf4j.LoggerFactory;
  * @author helge
  */
 public class LogInterceptor {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(LogInterceptor.class);
-    
+
     @Resource
     private SessionContext context;
-    
+
     @AroundInvoke
     public Object log(InvocationContext invocationContext) throws Exception {
         String originName = Thread.currentThread().getName();
         String currentUser = context.getCallerPrincipal().getName();
         LOG.info("originName: {} currentUser: {}", originName, currentUser);
-        try {
-            String tracingName = currentUser + " " + originName;
-            Thread.currentThread().setName(tracingName);
-            return invocationContext.proceed();
-        } finally {
-            Thread.currentThread().setName(originName);
-        }
+        return invocationContext.proceed();
     }
-    
+
 }

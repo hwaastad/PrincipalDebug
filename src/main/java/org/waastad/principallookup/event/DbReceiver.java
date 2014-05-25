@@ -6,7 +6,6 @@
 package org.waastad.principallookup.event;
 
 import javax.annotation.Resource;
-import javax.ejb.Asynchronous;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Observes;
@@ -26,7 +25,6 @@ public class DbReceiver {
     @Resource
     private SessionContext context;
 
-    @Asynchronous
     public void logToDb(@Observes @DBLog String logMessage) {
         LOG.info("DbReceiver: Caller Principal: {}", context.getCallerPrincipal().getName());
     }
